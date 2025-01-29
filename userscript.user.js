@@ -1,8 +1,6 @@
-// @name         Remove annoying Google widget request
-// @version      0.1
-// @match        *://*.google.com/*
-// @match        *://*.google.ru/*
-// @updateURL https://gist.github.com/anauthentic/8ba0ecf98cb5cf917563e1e12e6c035f/raw/remove-annoying-google-widget-request.user.js
+/* eslint userscripts/no-invalid-metadata: ["error", { top: "required" }] */
+
+// ==UserScript==
 // ==/UserScript==
 
 (function() {

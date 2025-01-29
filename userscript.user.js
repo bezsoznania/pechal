@@ -1,52 +1,63 @@
-/* eslint userscripts/no-invalid-metadata: ["error", { top: "required" }] */
-
 // ==UserScript==
+// @name         OpenWRT Apply and Reset Timer
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Adds input and button to trigger Apply and Reset actions with a delay
+// @author       You
+// @match        *://*/*  // Можно уточнить URL, чтобы скрипт работал только на нужной странице
+// @grant        none
 // ==/UserScript==
 
 (function() {
     'use strict';
 
-    // Создаем элементы
+    // Создаем элементы интерфейса
     const container = document.createElement('div');
-    const input = document.createElement('input');
-    const buttonApplyFor = document.createElement('button');
+    container.style.position = 'fixed';
+    container.style.top = '10px';
+    container.style.right = '10px';
+    container.style.backgroundColor = '#fff';
+    container.style.border = '1px solid #000';
+    container.style.padding = '10px';
+    container.style.zIndex = '9999';
 
-    // Настраиваем элементы
-    input.type = 'number';
-    input.placeholder = 'Введите секунды';
-    buttonApplyFor.innerText = 'Apply for...';
+    // Создаем поле для ввода времени
+    const inputField = document.createElement('input');
+    inputField.type = 'number';
+    inputField.placeholder = 'Время в секундах';
+    inputField.style.marginRight = '10px';
 
-    // Добавляем элементы на страницу
-    container.appendChild(input);
-    container.appendChild(buttonApplyFor);
-    document.body.appendChild(container);  // Измените на нужный контейнер
+    // Создаем кнопку Apply for..
+    const applyButton = document.createElement('button');
+    applyButton.innerText = 'Apply for..';
+    
+    // Добавляем элементы в контейнер
+    container.appendChild(inputField);
+    container.appendChild(applyButton);
+    document.body.appendChild(container);
 
-    // Обработчик события для кнопки
-    buttonApplyFor.addEventListener('click', () => {
-        const seconds = parseInt(input.value);
-        if (isNaN(seconds) || seconds <= 0) {
-            alert('Пожалуйста, введите положительное число');
+    // Получаем кнопки на странице
+    const applyBtn = document.querySelector('.appID');
+    const resetBtn = document.querySelector('.ressId');
+
+    // Обработчик нажатия на кнопку Apply for..
+    applyButton.addEventListener('click', () => {
+        const timeInSeconds = parseInt(inputField.value, 10);
+        if (isNaN(timeInSeconds) || timeInSeconds <= 0) {
+            alert('Пожалуйста, введите валидное время в секундах');
             return;
         }
 
-        // Нажимаем кнопку с классом appId через указанное количество секунд
-        setTimeout(() => {
-            const applyButton = document.querySelector('.appID');
-            if (applyButton) {
-                applyButton.click();
-            } else {
-                console.error('Кнопка с классом appId не найдена');
-            }
-        }, seconds * 1000);
+        // Нажимаем кнопку Apply
+        if (applyBtn) {
+            applyBtn.click();
+        }
 
-        // Нажимаем кнопку с классом ressId через указанное количество секунд + небольшая задержка
+        // Через указанное время нажимаем кнопку Reset
         setTimeout(() => {
-            const resetButton = document.querySelector('.ressId');
-            if (resetButton) {
-                resetButton.click();
-            } else {
-                console.error('Кнопка с классом ressId не найдена');
+            if (resetBtn) {
+                resetBtn.click();
             }
-        }, (seconds + 1) * 1000);  // Задержка на 1 секунду после apply
+        }, timeInSeconds * 1000); // Преобразуем секунды в миллисекунды
     });
 })();

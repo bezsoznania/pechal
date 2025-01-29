@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Adds input and button to trigger Apply and Reset actions with a delay
 // @author       You
-// @match        *://*/*  // Можно уточнить URL, чтобы скрипт работал только на нужной странице
+// @match        http://192.168.1.1/*  // Замените на правильный адрес вашего роутера
 // @grant        none
 // ==/UserScript==
 

@@ -1,18 +1,16 @@
 // ==UserScript==
-// @name         OpenWRT Apply and Reset Timer
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  Adds input and button to trigger Apply and Reset actions with a delay
-// @author       You
-// @match        http://192.168.1.1/*  // Замените на правильный адрес вашего роутера
+// @name         rick ovens
+// @description  202
+// @author       kaaml
+// @version      0.0.1
+// @match        *://*/*
 // @grant        none
+// @inject-into  content
 // ==/UserScript==
 
-(function() {
-    'use strict';
-
-    // Ждем полной загрузки страницы
-    window.addEventListener('load', function() {
+(function () {
+	'use strict';
+	window.addEventListener('load', function() {
         // Проверим, если кнопки уже есть, то создадим интерфейс
         const applyBtn = document.querySelector('.appID');
         const resetBtn = document.querySelector('.ressId');
@@ -69,3 +67,10 @@
         }
     });
 })();
+
+
+
+
+
+
+
